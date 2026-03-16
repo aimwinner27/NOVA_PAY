@@ -8,74 +8,99 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #0052CC;
-            --success-green: #1B873F;
-            --warning-orange: #E67E22;
-            --error-red: #D32F2F;
-            --bg-light: #F9FAFB;
-            --text-dark: #1A1A1A;
+            --primary: #3E7BFF;
+            --accent: #1EC2A9;
+            --deep: #0E2D69;
+            --text: #102547;
+            --muted: #667992;
+            --white: #FFFFFF;
+            --card: rgba(255,255,255,0.92);
+            --shadow: 0 24px 45px rgba(26, 53, 116, 0.22);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            min-height: 100%;
+            font-family: 'Lexend', sans-serif;
+            color: var(--text);
+            background: radial-gradient(circle at 20% 20%, #eaf3ff 0%, #f5faff 44%, #fefeff 100%);
         }
 
         body {
-            font-family: 'Lexend', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            padding: 2rem;
         }
 
         .app-container {
-            width: 100%;
-            max-width: 450px;
-            background: white;
-            padding: 2rem;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: min(100%, 560px);
+            border-radius: 30px;
+            border: 1px solid rgba(62,123,255,0.2);
+            background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75));
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            backdrop-filter: blur(8px);
             text-align: center;
         }
 
         /* Logo and Title */
         .header {
-            margin-bottom: 2rem;
+            margin: 0;
+            padding: 1.3rem 1.35rem 0.9rem;
+            background: linear-gradient(145deg, var(--primary), #7569ff);
+            color: var(--white);
         }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary-blue);
-            letter-spacing: -1px;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: 0.08rem;
+            text-shadow: 0 6px 18px rgba(0,0,0,0.28);
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: #666;
-            margin-top: 0.5rem;
+            margin: 0.45rem 0 0;
+            font-size: 1rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.92);
         }
 
         /* Voice Button Section */
         .voice-section {
-            background: #F0F7FF;
-            padding: 1.5rem;
-            border-radius: 24px;
-            margin-bottom: 2rem;
-            border: 2px dashed var(--primary-blue);
+            background: rgba(62, 123, 255, 0.1);
+            border: 1px dashed rgba(62, 123, 255, 0.35);
+            border-radius: 18px;
+            margin-bottom: 1.25rem;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .voice-section label {
+            font-weight: 700;
+            font-size: 0.98rem;
+            color: #1a3f84;
+            margin-bottom: 0.35rem;
+            display: block;
         }
 
         .mic-btn {
-            background-color: var(--primary-blue);
-            color: white;
-            border: none;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            font-size: 2.5rem;
+            width: 92px;
+            height: 92px;
+            border-radius: 999px;
+            border: 0;
+            background: linear-gradient(135deg, #1EC2A9, #3E7BFF);
+            color: #fff;
+            font-size: 2rem;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0, 82, 204, 0.3);
-            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 12px 22px rgba(62, 123, 255, 0.32);
+            transition: transform 0.2s ease, filter 0.25s ease;
         }
+
+        .mic-btn:hover { transform: translateY(2px) scale(1.03); filter: saturate(1.18); }
 
         .mic-btn:active {
             transform: scale(0.9);
@@ -83,7 +108,7 @@
 
         .mic-btn.listening {
             animation: pulse 1.5s infinite;
-            background-color: var(--error-red);
+            background-color: #ff4b6e;
         }
 
         @keyframes pulse {
@@ -94,47 +119,55 @@
 
         /* Input Fields */
         .input-group {
+            margin-bottom: 1rem;
             text-align: left;
-            margin-bottom: 1.5rem;
         }
 
         label {
             display: block;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            margin-left: 0.5rem;
+            color: #314f8f;
+            margin-bottom: 0.35rem;
+            margin-left: 0;
         }
 
         input {
             width: 100%;
-            padding: 1.2rem;
-            font-size: 1.5rem;
-            border: 3px solid #E0E0E0;
-            border-radius: 16px;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.3s;
+            padding: 1rem;
+            border: 1px solid rgba(56, 93, 155, 0.28);
+            border-radius: 14px;
+            background: rgba(255,255,255,0.94);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #1f3f6f;
+            transition: all 0.2s ease;
         }
 
         input:focus {
-            border-color: var(--primary-blue);
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 5px rgba(62, 123, 255, 0.14);
         }
 
         /* Action Button */
         .send-btn {
             width: 100%;
-            background-color: var(--success-green);
-            color: white;
-            border: none;
-            padding: 1.5rem;
-            font-size: 1.8rem;
-            font-weight: 700;
-            border-radius: 20px;
+            border-radius: 14px;
+            border: 2px;
+            padding: 1rem;
+            background: linear-gradient(120deg, #ff7b2c, #ff3f46);
+            color: blanchedalmond;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 0.02rem;
+            box-shadow: 0 14px 28px rgba(255, 79, 46, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
-            margin-top: 1rem;
-            box-shadow: 0 8px 15px rgba(27, 135, 63, 0.2);
+            margin-top: 0.8rem;
         }
+
+        .send-btn:hover { transform: translateY(2px); box-shadow: 0 18px 34px rgba(77, 89, 165, 0.38);border:size 2px; }
 
         /* Feedback Area */
         #feedback {
@@ -146,88 +179,403 @@
             font-weight: 600;
         }
 
-        .success-msg { background: #E8F5E9; color: var(--success-green); border: 2px solid var(--success-green); }
-        .warning-msg { background: #FFF3E0; color: var(--warning-orange); border: 2px solid var(--warning-orange); }
-        .error-msg { background: #FFEBEE; color: var(--error-red); border: 2px solid var(--error-red); }
+        .success-msg { background: #68c879; color: #0f765e; border: 2px solid #1ec2a9; }
+        .warning-msg { background: #a1c04f; color: #c7661d; border: 2px solid #f2a248; }
+        .error-msg { background: #f0515c; color: #a42d42; border: 2px solid #e13b4d; }
 
         .hint {
             font-size: 0.9rem;
             color: #888;
             margin-top: 10px;
         }
+
+        .page {
+            display: none;
+            padding: 1rem 0 1.35rem;
+            text-align: center;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .action-btn {
+            margin-top: 1.2rem;
+            padding: 0.95rem 1.15rem;
+            border-radius: 999px;
+            border: 0;
+            background: linear-gradient(120deg, #ff8065, #ff4634);
+            color: white;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(255, 79, 47, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .action-btn:hover { transform: translateY(2px); box-shadow: 0 14px 28px rgba(255, 79, 47, 0.38); }
+
+        .app-status {
+            margin: 0.8rem 1.25rem 0.3rem;
+            font-size: 0.95rem;
+            color: #1c4d89;
+            font-weight: 600;
+        }
+
+        .action-box {
+            margin: 0.75rem 1.2rem 1rem;
+            padding: 0.95rem;
+            border-radius: 16px;
+            border: 1px solid rgba(62, 123, 255, 0.25);
+            background:green (238, 245, 255, 0.84);
+            box-shadow: 0 10px 20px rgba(23, 69, 128, 0.09);
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            text-align: center;
+        }
+
+        .action-box .action-btn, .action-box .send-btn {
+            margin: 0;
+        }
+
+        .hero {
+            position: relative;
+            margin: 1rem;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 18px 32px rgba(15, 38, 92, 0.18);
+        }
+
+        .hero img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.95);
+        }
+
+        .hero-copy {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+            text-align: center;
+            width: 92%;
+        }
+
+        .hero-copy h2 {
+            margin: 0 0 0.35rem;
+            font-size: 1.45rem;
+            font-weight: 800;
+        }
+
+        .hero-copy p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.85rem;
+            padding: 0 1.35rem 1rem;
+        }
+
+        .feature-card {
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(62, 123, 255, 0.2);
+            padding: 0.85rem;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(18, 54, 110, 0.1);
+        }
+
+        .feature-card img {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 0.95rem;
+            margin: 0 0 0.25rem;
+            color: #19448d;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: #536e98;
+            font-size: 0.82rem;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+
+            .app-container {
+                width: 100%;
+                border-radius: 22px;
+                border-width: 1px;
+            }
+
+            .header {
+                padding: 1rem 1rem 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.7rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .voice-section {
+                padding: 0.98rem;
+            }
+
+            .mic-btn {
+                width: 78px;
+                height: 78px;
+                font-size: 1.6rem;color:#ff4b6e;
+
+            }
+
+            input {
+                padding: 0.82rem;
+                font-size: 1rem;
+            }
+
+            .send-btn {
+                padding: 0.92rem;
+                font-size: 1rem;
+                border-color: greenyellow;
+                background-color:black;
+                color: var(--white);
+            }
+
+            .hero img {
+                height: 140px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 0.7rem;
+                padding: 0 0.9rem 0.9rem;
+            }
+
+            #feedback {
+                margin-top: 1rem;
+                padding: 0.85rem;
+                font-size: 0.94rem;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .app-container { border-radius: 18px; }
+            .header { padding: 0.92rem 0.9rem 0.72rem; }
+            .logo { font-size: 1.5rem; }
+            .subtitle { font-size: 0.88rem; }
+            .voice-section { padding: 0.85rem; }
+            .mic-btn { width: 68px; height: 68px; font-size: 1.4rem; }
+            input { padding: 0.76rem; }
+            .send-btn { padding: 0.75rem; font-size: 0.95rem; }
+            .stats { grid-template-columns: 1fr; gap: 0.5rem; }
+        }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <div class="header">
-        <div class="logo">NOVA_PAY</div>
-        <div class="subtitle">Your Simple Assistant</div>
-    </div>
+    <section id="page1" class="page active">
+        <div class="header">
+            <div class="logo">NOVA_PAY</div>
+            <div class="subtitle">Welcome to the easiest way to pay</div>
+        </div>
+        <div class="hero">
+        <img src="https://images.unsplash.com/photo-1559027615-7889d5a16f5d?auto=format&fit=crop&w=1800&q=80" alt="Secure payments illustration" loading="lazy">
+ alt="Secure payments illustration" loading="lazy">
+            <div class="hero-copy">
+                <h2>Pay bills, send money, and stay secure</h2>
+                <p>Voice-enabled transfers and instant confirmation.</p>
+            </div>
+        </div>
+        <div class="feature-grid">
+            <article class="feature-card">
+                <img src="https://img.icons8.com/ios-filled/50/0078d4/flash.png" alt="Speed">
+                <h3>Fast</h3>
+                <p>Complete payments in seconds.</p>
+            </article>
+            <article class="feature-card">
+                <img src="https://img.icons8.com/ios-filled/50/0078d4/lock--v1.png" alt="Secure">
+                <h3>Safe</h3>
+                <p>Encrypted and verified transactions.</p>
+            </article>
+            <article class="feature-card">
+                <img src="https://img.icons8.com/ios-filled/50/0078d4/user-groups.png" alt="Easy">
+                <h3>Easy</h3>
+                <p>Speak or type and send instantly.</p>
+            </article>
+        </div>
+        <div class="action-box">
+            <button class="action-btn" onclick="goToPage(2)">Go to Payment</button>
+        </div>
+    </section>
 
-    <div class="voice-section">
-        <label>Tap to Speak</label>
-        <button id="micBtn" class="mic-btn" onclick="startVoice()">🎙️</button>
-        <p class="hint">Try: "Send 500 to Ravi"</p>
-        <p id="voiceStatus" style="font-weight: bold; color: var(--primary-blue); height: 20px;"></p>
-    </div>
+    <section id="page2" class="page">
+        <div class="header">
+            <div class="logo">NOVA_PAY</div>
+            <div class="subtitle">Payment Process</div>
+        </div>
 
-    <div class="input-group">
-        <label for="recipient">Who are you paying?</label>
-        <input type="text" id="recipient" placeholder="Enter name">
-    </div>
+        <div class="app-status">Use voice or manual input to initiate payment</div>
 
-    <div class="input-group">
-        <label for="amount">How much? (₹)</label>
-        <input type="number" id="amount" placeholder="0.00">
-    </div>
+        <div class="voice-section">
+            <label>Tap to Speak</label>
+            <button id="micBtn" class="mic-btn" onclick="startVoice()">🎙️</button>
+            <p class="hint">Try: "Send 500 to Ravi"</p>
+            <p id="voiceStatus" style="font-weight: bold; color: var(--primary); height: 20px;"></p>
+            <p id="transcriptOutput" style="margin-top: 0.6rem; color: #2950a5; font-weight: 700;"></p>
+        </div>
 
-    <button class="send-btn" onclick="processPayment()">SEND MONEY NOW</button>
+        <div class="input-group">
+            <label for="recipient">Who are you paying?</label>
+            <input type="text" id="recipient" placeholder="Enter name">
+        </div>
 
-    <div id="feedback"></div>
+        <div class="input-group">
+            <label for="amount">How much? (₹)</label>
+            <input type="number" id="amount" placeholder="0.00">
+        </div>
+
+        <div class="action-box">
+            <button class="send-btn" id="sendBtn" onclick="processPayment()">SEND MONEY NOW</button>
+            <button class="action-btn" onclick="goToPage(1)" style="background: #4d6bff; margin-top: 0;">Back to Welcome</button>
+        </div>
+
+        <div id="feedback"></div>
+    </section>
+
+    <section id="page3" class="page">
+        <div class="header">
+            <div class="logo">NOVA_PAY</div>
+            <div class="subtitle">Payment Confirmed</div>
+        </div>
+        <div style="padding: 1.3rem; text-align: center;">
+            <div style="font-size: 4rem; color: #1ec2a9;">✔️</div>
+            <h2 style="margin: 0.8rem 0 0.45rem; color: #0f356f;">Transfer Successful</h2>
+            <p id="confirmationDetails" style="font-size: 1rem; color: #344f80; margin: 0 0 1rem;">Your payment has been completed.</p>
+            <button class="action-btn" onclick="goToPage(1)">Return Home</button>
+        </div>
+    </section>
 </div>
 
 <script>
+    const sections = {
+        page1: document.getElementById('page1'),
+        page2: document.getElementById('page2'),
+        page3: document.getElementById('page3')
+    };
+
     const micBtn = document.getElementById('micBtn');
     const voiceStatus = document.getElementById('voiceStatus');
+    const transcriptOutput = document.getElementById('transcriptOutput');
     const recipientInput = document.getElementById('recipient');
     const amountInput = document.getElementById('amount');
     const feedback = document.getElementById('feedback');
+    const confirmationDetails = document.getElementById('confirmationDetails');
 
-    // Simulate Voice Recognition
+    function goToPage(pageNumber) {
+        Object.values(sections).forEach(section => section.classList.remove('active'));
+        sections['page' + pageNumber].classList.add('active');
+        feedback.style.display = 'none';
+        if (pageNumber !== 2) {
+            transcriptOutput.innerText = '';
+            voiceStatus.innerText = '';
+        }
+    }
+
+    // Voice Recognition (Web Speech API)
     function startVoice() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            showFeedback("Speech recognition is not supported in this browser.", "warning-msg");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-IN';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
         micBtn.classList.add('listening');
         voiceStatus.innerText = "Listening...";
         feedback.style.display = "none";
 
-        // Simulating AI processing time
-        setTimeout(() => {
+        recognition.start();
+
+        recognition.onresult = function(event) {
+            const transcript = event.results[0][0].transcript.trim();
+            transcriptOutput.innerText = "You said: " + transcript;
+            let amount = "";
+            let recipient = "";
+
+            const pattern = /(?:send\s*)?(\d+(?:\.\d+)?)\s*(?:rupees|rs|inr)?(?:\s*to)?\s*(.+)/i;
+            const match = transcript.match(pattern);
+
+            if (match) {
+                amount = match[1];
+                recipient = match[2];
+            } else {
+                const numMatch = transcript.match(/\d+(?:\.\d+)?/);
+                if (numMatch) {
+                    amount = numMatch[0];
+                    recipient = transcript.replace(numMatch[0], '').replace(/(?:rupees|rs|inr|to)/gi, '').trim();
+                } else {
+                    recipient = transcript;
+                }
+            }
+
+            if (recipient) recipientInput.value = recipient;
+            if (amount) amountInput.value = amount;
+
+            showFeedback("Heard: \"" + transcript + "\". Updated fields accordingly.", "success-msg");
+        };
+
+        recognition.onerror = function(event) {
+            transcriptOutput.innerText = "Could not recognize speech. Please try again.";
+            showFeedback("Voice recognition error: " + (event.error || 'unknown') + ". Please try again.", "error-msg");
+        };
+
+        recognition.onend = function() {
             micBtn.classList.remove('listening');
             voiceStatus.innerText = "";
-            
-            // Mocking extracted data from a voice command: "Send 500 rupees to Ravi"
-            recipientInput.value = "Ravi";
-            amountInput.value = "500";
-            
-            showFeedback("I've filled the details for Ravi. Please check and press Send.", "warning-msg");
-        }, 2500);
+            if (!transcriptOutput.innerText) {
+                transcriptOutput.innerText = "Recording finished.";
+            }
+        };
     }
 
     function processPayment() {
-        const name = recipientInput.value;
-        const amt = amountInput.value;
+        const name = recipientInput.value.trim();
+        const amt = amountInput.value.trim();
 
         if (!name || !amt) {
             showFeedback("Please tell me who and how much.", "error-msg");
             return;
         }
 
-        // Warning for large amounts (Elderly protection)
         if (amt > 5000) {
-            showFeedback("⚠️ That's a lot of money! Are you sure you want to send ₹" + amt + " to " + name + "?", "warning-msg");
-            // Change button text to confirm
-            document.querySelector('.send-btn').innerText = "YES, I AM SURE";
-            document.querySelector('.send-btn').onclick = confirmFinal;
+            showFeedback("⚠️ That's a lot of money! Tap SEND again to confirm.", "warning-msg");
+            const btn = document.getElementById('sendBtn');
+            btn.innerText = "CONFIRM & SEND";
+            btn.onclick = confirmFinal;
             return;
         }
 
@@ -235,21 +583,21 @@
     }
 
     function confirmFinal() {
-        const name = recipientInput.value;
-        const amt = amountInput.value;
-        
-        showFeedback("✅ Success! ₹" + amt + " sent to " + name + ".", "success-msg");
-        
-        // Reset button
-        const btn = document.querySelector('.send-btn');
+        const name = recipientInput.value.trim();
+        const amt = parseFloat(amountInput.value.trim()).toFixed(2);
+
+        confirmationDetails.innerText = `✅ ₹${amt} has been sent to ${name}.`;
+        goToPage(3);
+
+        // reset for next flow
+        const btn = document.getElementById('sendBtn');
         btn.innerText = "SEND MONEY NOW";
         btn.onclick = processPayment;
-        
-        // Clear fields after short delay
+
         setTimeout(() => {
             recipientInput.value = "";
             amountInput.value = "";
-        }, 3000);
+        }, 2000);
     }
 
     function showFeedback(text, className) {
