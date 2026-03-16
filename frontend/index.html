@@ -1,25 +1,263 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>NOVA_PAY</title>
-    <link rel="stylesheet" href="style.css">
-</head>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA_PAY | Simple Payments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0052CC;
+            --success-green: #1B873F;
+            --warning-orange: #E67E22;
+            --error-red: #D32F2F;
+            --bg-light: #F9FAFB;
+            --text-dark: #1A1A1A;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            padding: 2rem;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* Logo and Title */
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Voice Button Section */
+        .voice-section {
+            background: #F0F7FF;
+            padding: 1.5rem;
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            border: 2px dashed var(--primary-blue);
+        }
+
+        .mic-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            font-size: 2.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 82, 204, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .mic-btn:active {
+            transform: scale(0.9);
+        }
+
+        .mic-btn.listening {
+            animation: pulse 1.5s infinite;
+            background-color: var(--error-red);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(211, 47, 47, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        }
+
+        /* Input Fields */
+        .input-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.5rem;
+            border: 3px solid #E0E0E0;
+            border-radius: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary-blue);
+        }
+
+        /* Action Button */
+        .send-btn {
+            width: 100%;
+            background-color: var(--success-green);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 1rem;
+            box-shadow: 0 8px 15px rgba(27, 135, 63, 0.2);
+        }
+
+        /* Feedback Area */
+        #feedback {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 16px;
+            display: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .success-msg { background: #E8F5E9; color: var(--success-green); border: 2px solid var(--success-green); }
+        .warning-msg { background: #FFF3E0; color: var(--warning-orange); border: 2px solid var(--warning-orange); }
+        .error-msg { background: #FFEBEE; color: var(--error-red); border: 2px solid var(--error-red); }
+
+        .hint {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>
+</head>
 <body>
 
-<div class="container">
-    <h1>NOVA_PAY</h1>
-    <p>Simple Voice Payment</p>
+<div class="app-container">
+    <div class="header">
+        <div class="logo">NOVA_PAY</div>
+        <div class="subtitle">Your Simple Assistant</div>
+    </div>
 
-    <input id="recipient" placeholder="Recipient name">
-    <input id="amount" placeholder="Amount">
+    <div class="voice-section">
+        <label>Tap to Speak</label>
+        <button id="micBtn" class="mic-btn" onclick="startVoice()">🎙️</button>
+        <p class="hint">Try: "Send 500 to Ravi"</p>
+        <p id="voiceStatus" style="font-weight: bold; color: var(--primary-blue); height: 20px;"></p>
+    </div>
 
-    <button onclick="sendPayment()">Send Money</button>
+    <div class="input-group">
+        <label for="recipient">Who are you paying?</label>
+        <input type="text" id="recipient" placeholder="Enter name">
+    </div>
 
-    <div id="result"></div>
+    <div class="input-group">
+        <label for="amount">How much? (₹)</label>
+        <input type="number" id="amount" placeholder="0.00">
+    </div>
+
+    <button class="send-btn" onclick="processPayment()">SEND MONEY NOW</button>
+
+    <div id="feedback"></div>
 </div>
 
-<script src="app.js"></script>
+<script>
+    const micBtn = document.getElementById('micBtn');
+    const voiceStatus = document.getElementById('voiceStatus');
+    const recipientInput = document.getElementById('recipient');
+    const amountInput = document.getElementById('amount');
+    const feedback = document.getElementById('feedback');
+
+    // Simulate Voice Recognition
+    function startVoice() {
+        micBtn.classList.add('listening');
+        voiceStatus.innerText = "Listening...";
+        feedback.style.display = "none";
+
+        // Simulating AI processing time
+        setTimeout(() => {
+            micBtn.classList.remove('listening');
+            voiceStatus.innerText = "";
+            
+            // Mocking extracted data from a voice command: "Send 500 rupees to Ravi"
+            recipientInput.value = "Ravi";
+            amountInput.value = "500";
+            
+            showFeedback("I've filled the details for Ravi. Please check and press Send.", "warning-msg");
+        }, 2500);
+    }
+
+    function processPayment() {
+        const name = recipientInput.value;
+        const amt = amountInput.value;
+
+        if (!name || !amt) {
+            showFeedback("Please tell me who and how much.", "error-msg");
+            return;
+        }
+
+        // Warning for large amounts (Elderly protection)
+        if (amt > 5000) {
+            showFeedback("⚠️ That's a lot of money! Are you sure you want to send ₹" + amt + " to " + name + "?", "warning-msg");
+            // Change button text to confirm
+            document.querySelector('.send-btn').innerText = "YES, I AM SURE";
+            document.querySelector('.send-btn').onclick = confirmFinal;
+            return;
+        }
+
+        confirmFinal();
+    }
+
+    function confirmFinal() {
+        const name = recipientInput.value;
+        const amt = amountInput.value;
+        
+        showFeedback("✅ Success! ₹" + amt + " sent to " + name + ".", "success-msg");
+        
+        // Reset button
+        const btn = document.querySelector('.send-btn');
+        btn.innerText = "SEND MONEY NOW";
+        btn.onclick = processPayment;
+        
+        // Clear fields after short delay
+        setTimeout(() => {
+            recipientInput.value = "";
+            amountInput.value = "";
+        }, 3000);
+    }
+
+    function showFeedback(text, className) {
+        feedback.innerText = text;
+        feedback.className = className;
+        feedback.style.display = "block";
+    }
+</script>
 
 </body>
 </html>

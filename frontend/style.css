@@ -1,25 +1,150 @@
-body{
-    font-family: Arial;
-    background:#1e3c72;
-    color:white;
-    text-align:center;
-}
+<style>
+        :root {
+            --primary-blue: #0052CC;
+            --success-green: #1B873F;
+            --warning-orange: #E67E22;
+            --error-red: #D32F2F;
+            --bg-light: #F9FAFB;
+            --text-dark: #1A1A1A;
+        }
 
-.container{
-    margin-top:120px;
-}
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-input{
-    padding:10px;
-    margin:10px;
-    border-radius:6px;
-    border:none;
-}
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            padding: 2rem;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
 
-button{
-    padding:12px 20px;
-    background:#00c6ff;
-    border:none;
-    border-radius:8px;
-    color:white;
-}
+        /* Logo and Title */
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Voice Button Section */
+        .voice-section {
+            background: #F0F7FF;
+            padding: 1.5rem;
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            border: 2px dashed var(--primary-blue);
+        }
+
+        .mic-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            font-size: 2.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 82, 204, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .mic-btn:active {
+            transform: scale(0.9);
+        }
+
+        .mic-btn.listening {
+            animation: pulse 1.5s infinite;
+            background-color: var(--error-red);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(211, 47, 47, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        }
+
+        /* Input Fields */
+        .input-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.5rem;
+            border: 3px solid #E0E0E0;
+            border-radius: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary-blue);
+        }
+
+        /* Action Button */
+        .send-btn {
+            width: 100%;
+            background-color: var(--success-green);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 1rem;
+            box-shadow: 0 8px 15px rgba(27, 135, 63, 0.2);
+        }
+
+        /* Feedback Area */
+        #feedback {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 16px;
+            display: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .success-msg { background: #E8F5E9; color: var(--success-green); border: 2px solid var(--success-green); }
+        .warning-msg { background: #FFF3E0; color: var(--warning-orange); border: 2px solid var(--warning-orange); }
+        .error-msg { background: #FFEBEE; color: var(--error-red); border: 2px solid var(--error-red); }
+
+        .hint {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>

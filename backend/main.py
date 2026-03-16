@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from payment_logic import evaluate_transaction
 
 app = FastAPI()
 
@@ -16,18 +17,7 @@ def read_root():
 
 @app.post("/process-payment")
 def process_payment(payment: PaymentRequest):
-
     amount = payment.amount
     recipient = payment.recipient
 
-    # Simple risk logic
-    if amount > 5000:
-        return {
-            "status": "warning",
-            "message": f"⚠️ Transaction of ₹{amount} to {recipient} looks unusual. Please verify."
-        }
-
-    return {
-        "status": "success",
-        "message": f"✅ Payment of ₹{amount} to {recipient} processed successfully."
-    }
+    return evaluate_transaction(amount, recipient)

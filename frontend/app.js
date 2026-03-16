@@ -1,25 +1,72 @@
-async function sendPayment(){
+const micBtn = document.getElementById('micBtn');
+const voiceStatus = document.getElementById('voiceStatus');
+const recipientInput = document.getElementById('recipient');
+const amountInput = document.getElementById('amount');
+const feedback = document.getElementById('feedback');
 
-let recipient = document.getElementById("recipient").value;
-let amount = document.getElementById("amount").value;
+// Simulate Voice Recognition
+function startVoice() {
+        micBtn.classList.add('listening');
+        voiceStatus.innerText = "Listening...";
+        feedback.style.display = "none";
 
-const response = await fetch("http://127.0.0.1:8000/process-payment",{
+        // Simulating AI processing time
+        setTimeout(() => {
+            micBtn.classList.remove('listening');
+            voiceStatus.innerText = "";
+            
+            // Mocking extracted data from a voice command: "Send 500 rupees to Ravi"
+            recipientInput.value = "Ravi";
+            amountInput.value = "500";
+            
+            showFeedback("I've filled the details for Ravi. Please check and press Send.", "warning-msg");
+        }, 2500);
+    }
 
-method:"POST",
+    function processPayment() {
+        const name = recipientInput.value;
+        const amt = amountInput.value;
 
-headers:{
-"Content-Type":"application/json"
-},
+        if (!name || !amt) {
+            showFeedback("Please tell me who and how much.", "error-msg");
+            return;
+        }
 
-body:JSON.stringify({
-amount: parseInt(amount),
-recipient: recipient
-})
+        // Warning for large amounts (Elderly protection)
+        if (amt > 5000) {
+            showFeedback("⚠️ That's a lot of money! Are you sure you want to send ₹" + amt + " to " + name + "?", "warning-msg");
+            // Change button text to confirm
+            document.querySelector('.send-btn').innerText = "YES, I AM SURE";
+            document.querySelector('.send-btn').onclick = confirmFinal;
+            return;
+        }
 
-});
+        confirmFinal();
+    }
 
-const data = await response.json();
+    function confirmFinal() {
+        const name = recipientInput.value;
+        const amt = amountInput.value;
+        
+        showFeedback("✅ Success! ₹" + amt + " sent to " + name + ".", "success-msg");
+        
+        // Reset button
+        const btn = document.querySelector('.send-btn');
+        btn.innerText = "SEND MONEY NOW";
+        btn.onclick = processPayment;
+        
+        // Clear fields after short delay
+        setTimeout(() => {
+            recipientInput.value = "";
+            amountInput.value = "";
+        }, 3000);
+    }
 
-document.getElementById("result").innerHTML = data.message;
+    function showFeedback(text, className) {
+        feedback.innerText = text;
+        feedback.className = className;
+        feedback.style.display = "block";
+    }
 
-}
+
+
